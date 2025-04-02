@@ -1,4 +1,6 @@
 <x-app-layout>
+    {{-- <p class='blue-800'>{{ $searchedMoviesIDs[0] }}</p> --}}
+
     @if ($movies->count() > 0)
         @foreach ($movies as $movie)
             <div class="flex flex-col mb-4">
@@ -6,7 +8,9 @@
                     @if ($property === 'poster')
                         <img src="{{ $value }}" class='w-[300px]'>
                     @else
-                        <div class=""><span class='font-black'>{{ $property }}</span>: {{ $value }}</div>
+                        @if ($nullValues($property) !== $value)
+                            <div class=""><span class='font-black'>{{ $property }}</span>: {{ $value }}</div>
+                        @endif
                     @endif
                 @endforeach
             </div>
