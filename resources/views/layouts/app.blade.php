@@ -17,14 +17,15 @@
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased overflow-x-hidden">
         <x-banner />
 
         <div class="flex flex-col min-h-screen">
             @livewire('navigation-menu')
 
             <!-- Page Content -->
-            <main class="flex flex-col flex-1">
+            <main class="flex flex-col flex-1 bg-no-repeat bg-cover bg-top justify-center items-center"
+            style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{{ Storage::url('images/synthwave-bg.jpg') }}');">
                 {{ $slot }}
             </main>
         </div>

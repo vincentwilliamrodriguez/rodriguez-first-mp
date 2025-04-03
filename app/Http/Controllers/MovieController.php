@@ -10,11 +10,11 @@ use Illuminate\Support\Arr;
 class MovieController extends Controller
 {
     public function index() {
-        Movie::updateMoviesResults('wall-e');
+        $query = 'the quick';
+        // Movie::updateMoviesResults($query);
 
         $movies = Movie::all();
-        $nullValues = fn($inp) => ($inp === 'rating') ? 0 : 'N/A';
 
-        return view('movie.index', compact('movies', 'nullValues'));
+        return view('movie.index', compact('movies', 'query'));
     }
 }
