@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Http\Client\Pool;
 use Illuminate\Support\Facades\Http;
 
 class MovieApiService
@@ -36,31 +37,38 @@ class MovieApiService
         return $response->json()['Search'];
     }
 
-    public function getMovieDetails($imdbID) {
-        $response = Http::get($this->baseUrl, [
-            'i' => $imdbID,
-            'apiKey' => $this->apiKey,
-        ]);
+    public function getMoviesDetails($ids) {
 
 
-        if (!$response->successful()) {
-            return ['Error' => 'Unable to get data!'];
+        $responses = Http::pool(function (Pool $pool) use ($ids) {
+            $links = [];
+
+            foreach ($ids as $id) {
+                $links[] = $pool->get($this->baseUrl, [
+                    'i' => $id,
+                    'apiKey' => $this->apiKey,
+                ]);
+            }
+
+            return $links;
+        });
+
+        $moviesDetails = [];
+
+        foreach ($responses as $response) {
+            if ($response->successful()) {
+                $res = $response->json();
+                $moviesDetails[$res['imdbID']] = [
+                    'title' => $res['Title'],
+                    'plot' => $res['Plot'],
+                    'rating' => (float) $res['imdbRating'],
+                    'runtime' => $res['Runtime'],
+                    'genre' => explode(', ', $res['Genre'])[0],
+                    'poster' => $res['Poster'],
+                ];
+            }
         }
 
-        if ($response->json()['Response'] === 'False') {
-            return ['Error' => $response->json()['Error']];
-        }
-
-        $res = $response->json();
-
-        return [
-            'title' => $res['Title'],
-            'plot' => $res['Plot'],
-            'rating' => (float) $res['imdbRating'],
-            'runtime' => $res['Runtime'],
-            'genre' => explode(', ', $res['Genre'])[0],
-            'poster' => $res['Poster'],
-            'imdbID' => $res['imdbID'],
-        ];
+        return $moviesDetails;
     }
 }

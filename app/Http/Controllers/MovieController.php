@@ -10,12 +10,16 @@ class MovieController extends Controller
     public function index() {
         $query = $_GET['q'] ?? '';
         $error = '';
+        $isNewSearch = !isset($_GET['page']);
 
-        if ($query === '') {
-            Movie::randomizeMovies();
-        } else {
-            $error = Movie::updateMoviesResults($query);
+        if ($isNewSearch) {
+            if ($query === '') {
+                Movie::randomizeMovies();
+            } else {
+                $error = Movie::updateMoviesResults($query);
+            }
         }
+        
 
         $movies = Movie::query()->paginate(6);
 

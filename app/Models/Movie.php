@@ -25,16 +25,17 @@ class Movie extends Model
     public static function updateMoviesResults($query) {
         $movieApiService = new MovieApiService;
 
-        $testResponse = $movieApiService->searchMovies($query);
-        $searchedMoviesIDs = array_column($testResponse, 'imdbID');
+        $response = $movieApiService->searchMovies($query);
+        $searchedMoviesIDs = array_column($response, 'imdbID');
         $error = $searchedMoviesIDs['Error'] ?? '';
 
         if ($error === '') {
             Movie::truncate();
 
-            foreach ($searchedMoviesIDs as $movieID) {
-                $movieDetails = $movieApiService->getMovieDetails($movieID);
-                Movie::updateOrCreate(['imdbID' => $movieID], $movieDetails);
+            $moviesDetails = $movieApiService->getMoviesDetails($searchedMoviesIDs);
+
+            foreach ($moviesDetails as $imdbID => $movieDetails) {
+                Movie::updateOrCreate(['imdbID' => $imdbID], $movieDetails);
             }
         }
 
