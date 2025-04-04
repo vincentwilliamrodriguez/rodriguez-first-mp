@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="flex-1 pt-[4vh] pb-[10vh] w-[1000px] flex flex-col justify-start items-center">
+    <div class="flex-1 pt-[4vh] pb-[10vh] px-6 max-w-[1000px] flex flex-col justify-start items-center">
         <x-search-bar value='{{ $query }}'></x-search-bar>
 
         <div class="text-white flex flex-col justify-center items-center w-full mt-2 bg-[#00000033] rounded-lg px-8 py-6">
@@ -21,7 +21,7 @@
                 @endif
             </p>
 
-            <div class="grid grid-cols-3 auto-rows-[493.95px] justify-center gap-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-[493.95px] justify-center gap-6 mb-8">
                 @foreach ($movies as $movie)
                     <x-movie-card :movie="$movie"></x-movie-card>
                 @endforeach

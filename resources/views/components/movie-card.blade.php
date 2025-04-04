@@ -20,9 +20,9 @@
     }
 @endphp
 
-<div class="group relative basis-[200px] bg-[#444444] rounded-md shadow-xl select-none overflow-hidden opacity-90 scale-100 hover:scale-105 transition-all duration-500 font-smoothing-none">
+<div class="group relative basis-[200px] max-w-[280px] bg-[#444444] rounded-2xl drop-shadow-[0_0_12px_#ffffff22] select-none overflow-hidden opacity-90 scale-100 hover:scale-105 transition-all duration-500 font-smoothing-none">
     @if ($movie->poster !== 'N/A')
-        <img src="{{ $movie->poster }}" class='h-full object-cover pointer-events-none select-none'>
+        <img src="{{ $movie->poster }}" class='min-h-full min-w-full object-cover pointer-events-none select-none'>
     @else
         <div class="h-full w-full flex justify-center items-center">
             <x-pixelarticons-movie class="text-[#999999] h-24 pointer-events-none"/>
