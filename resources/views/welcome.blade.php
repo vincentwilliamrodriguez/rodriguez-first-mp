@@ -7,11 +7,7 @@
                 <x-search-bar class="w-[400px]"></x-search-bar>
                 <p class="text-center text-gray-400">or...</p>
 
-                <x-button class="justify-center gap-2 w-min select-none"
-                    colorInitial="bg-pink-600"
-                    colorHover="hover:bg-pink-500 focus:bg-pink-500"
-                    colorActive="active:bg-pink-700"
-                    onclick="window.location='{{ route('movies') }}?type=r'">
+                <x-button class="justify-center gap-2 w-min select-none" onclick="window.location='{{ route('movies') }}'">
 
                     <x-css-dice-5 />
                     Randomize

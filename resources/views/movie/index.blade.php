@@ -21,16 +21,9 @@
                 @endif
             </p>
 
-            <div class="grid grid-cols-4 auto-rows-[329.3px] justify-center gap-4 mb-4">
+            <div class="grid grid-cols-3 auto-rows-[493.95px] justify-center gap-6 mb-4">
                 @foreach ($movies as $movie)
-                    <div class="flex justify-center items-center basis-[200px] bg-[#444444] rounded-md shadow-xl select-none overflow-hidden opacity-80 hover:opacity-95 transition-all">
-                        @if ($movie->poster !== 'N/A')
-                            <img src="{{ $movie->poster }}" class='h-full object-cover pointer-events-none'>
-                        @else
-                            <x-pixelarticons-movie class="text-[#999999] h-12"/>
-                        @endif
-
-                    </div>
+                    <x-movie-card :movie="$movie"></x-movie-card>
 
                         {{-- @foreach ($movie->toArray() as $property => $value)
                             @if ($property === 'poster')

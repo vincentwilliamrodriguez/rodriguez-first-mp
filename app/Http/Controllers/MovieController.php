@@ -14,7 +14,7 @@ class MovieController extends Controller
         if ($query === '') {
             Movie::randomizeMovies();
         } else {
-            // $error = Movie::updateMoviesResults($query);
+            $error = Movie::updateMoviesResults($query);
         }
 
         $movies = Movie::all();
