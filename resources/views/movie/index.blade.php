@@ -21,26 +21,13 @@
                 @endif
             </p>
 
-            <div class="grid grid-cols-3 auto-rows-[493.95px] justify-center gap-6 mb-4">
+            <div class="grid grid-cols-3 auto-rows-[493.95px] justify-center gap-6 mb-8">
                 @foreach ($movies as $movie)
                     <x-movie-card :movie="$movie"></x-movie-card>
-
-                        {{-- @foreach ($movie->toArray() as $property => $value)
-                            @if ($property === 'poster')
-                            @endif
-
-    {{--
-                            @if ($property === 'poster')
-                                <img src="{{ $value }}" class='w-[300px]'>
-                            @else
-                                @if ($nullValues($property) !== $value)
-                                    <div class=""><span class='font-black'>{{ $property }}</span>: {{ $value }}</div>
-                                @endif
-                            @endif
-
-                        @endforeach --}}
                 @endforeach
             </div>
+
+            {{ $movies->appends(['q' => $query])->links('pagination::tailwind') }}
         </div>
 
 

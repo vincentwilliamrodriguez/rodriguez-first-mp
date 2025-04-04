@@ -22,7 +22,7 @@
 
 <div class="group relative basis-[200px] bg-[#444444] rounded-md shadow-xl select-none overflow-hidden opacity-90 scale-100 hover:scale-105 transition-all duration-500 font-smoothing-none">
     @if ($movie->poster !== 'N/A')
-        <img src="{{ $movie->poster }}" class='h-full object-cover pointer-events-none'>
+        <img src="{{ $movie->poster }}" class='h-full object-cover pointer-events-none select-none'>
     @else
         <div class="h-full w-full flex justify-center items-center">
             <x-pixelarticons-movie class="text-[#999999] h-24 pointer-events-none"/>
@@ -52,9 +52,11 @@
             </div>
         @endif
 
-        <p class="text-xs text-[#B1B1B1] text-pretty" style="word-break: break-word;">{{ $movie->plot }}</p>
+        <p class="text-xs text-[#B1B1B1] text-pretty" style="word-break: break-word;">
+            {{ ($movie->plot != 'N/A') ? $movie->plot : 'No description available.' }}
+        </p>
 
-        <x-button class='self-center opacity-80 justify-center gap-1 w-min select-none' onclick="window.open('https://www.imdb.com/title/{{ $movie->imdbID }}', '_blank')">
+        <x-button class='self-center opacity-90 justify-center gap-1 w-min select-none' onclick="window.open('https://www.imdb.com/title/{{ $movie->imdbID }}', '_blank')">
             <x-css-external />
             IMDb
         </x-button>

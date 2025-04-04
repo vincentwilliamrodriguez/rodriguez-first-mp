@@ -17,7 +17,7 @@ class MovieController extends Controller
             $error = Movie::updateMoviesResults($query);
         }
 
-        $movies = Movie::all();
+        $movies = Movie::query()->paginate(6);
 
         return view('movie.index', compact('movies', 'query', 'error'));
     }
